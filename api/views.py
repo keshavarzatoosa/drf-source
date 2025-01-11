@@ -1,4 +1,5 @@
 from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView, DestroyAPIView, RetrieveDestroyAPIView, UpdateAPIView, RetrieveUpdateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAdminUser
 from django.shortcuts import render
 from blog.models import Article
 from .serializers import ArticleSerializer, UserSerializer
@@ -57,12 +58,13 @@ class ArticleDetail(RetrieveUpdateDestroyAPIView):
     # lookup_field = "slug"
 
 
-
 class UserList(ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (IsAdminUser,)
 
 
 class UserDetail(RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (IsAdminUser,)
