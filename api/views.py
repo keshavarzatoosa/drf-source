@@ -4,6 +4,7 @@ from django.shortcuts import render
 from blog.models import Article
 from .serializers import ArticleSerializer, UserSerializer
 from django.contrib.auth.models import User
+from .permissions import IsSuperUser, IsAuthorOrReadOnly, IsStaffOrReadOnly, IsSuperUserOrStaffReadOnly
 
 
 # get all objects
@@ -52,6 +53,7 @@ class ArticleList(ListCreateAPIView):
 class ArticleDetail(RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+    permission_classes = (IsAuthorOrReadOnly, IsStaffOrReadOnly)
     # This parameter is equale "pk" as default if you don't write it
     # lookup_field = "pk"
     # If you want to put this field equale to "slug"
@@ -61,10 +63,14 @@ class ArticleDetail(RetrieveUpdateDestroyAPIView):
 class UserList(ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsAdminUser,)
+    # permission_classes = (IsSuperUser,)
+    # permission_classes = (IsAdminUser,)
+    permission_classes = (IsSuperUserOrStaffReadOnly,)
 
 
 class UserDetail(RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsAdminUser,)
+    # permission_classes = (IsSuperUser,)
+    # permission_classes = (IsAdminUser,)
+    permission_classes = (IsSuperUserOrStaffReadOnly,)
