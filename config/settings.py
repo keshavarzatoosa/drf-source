@@ -136,5 +136,13 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.AllowAny',
         # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
         'api.permissions.IsStaffOrReadOnly',
+    ],
+     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        # jwt
+        # knox
+        # oauth
     ]
 }

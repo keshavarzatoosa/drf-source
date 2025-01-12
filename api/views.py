@@ -1,5 +1,6 @@
 from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView, DestroyAPIView, RetrieveDestroyAPIView, UpdateAPIView, RetrieveUpdateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAdminUser
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from django.shortcuts import render
 from blog.models import Article
 from .serializers import ArticleSerializer, UserSerializer
@@ -66,6 +67,7 @@ class UserList(ListCreateAPIView):
     # permission_classes = (IsSuperUser,)
     # permission_classes = (IsAdminUser,)
     permission_classes = (IsSuperUserOrStaffReadOnly,)
+    # authentication_classes = (SessionAuthentication,)
 
 
 class UserDetail(RetrieveUpdateDestroyAPIView):
