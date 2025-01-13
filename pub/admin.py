@@ -16,6 +16,7 @@ from .models import Parameters
 #             self.fields['type'].widget.attrs['readonly'] = True
 
 class ParametersAdmin(admin.ModelAdmin):
+    list_display = ('code', 'name', 'parent', 'type')
     # form = ParametersAdminForm
 
     # class Media:
