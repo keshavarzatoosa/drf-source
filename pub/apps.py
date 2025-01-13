@@ -4,3 +4,6 @@ from django.apps import AppConfig
 class PubConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'pub'
+
+    def ready(self):
+        import pub.signals

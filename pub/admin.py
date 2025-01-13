@@ -1,8 +1,25 @@
 from django.contrib import admin
 from .models import Parameters
+# from django import forms
 
+
+# class ParametersAdminForm(forms.ModelForm):
+
+#     class Meta:
+#         model = Parameters
+#         fields = '__all__'
+
+#     def __init__(self, *args, **kwargs):
+#         super(ParametersAdminForm, self).__init__(*args, **kwargs)
+#         if self.instance and self.instance.parent:
+#             self.fields['type'].initial = self.instance.parent.type
+#             self.fields['type'].widget.attrs['readonly'] = True
 
 class ParametersAdmin(admin.ModelAdmin):
+    # form = ParametersAdminForm
+
+    # class Media:
+    #     js = ('admin/js/parameters.js')
 
     def get_readonly_fields(self, request, obj=None):
         if obj and obj.parent is not None:
