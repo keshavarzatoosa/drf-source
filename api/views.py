@@ -88,20 +88,20 @@ class UserDetail(RetrieveUpdateDestroyAPIView):
     permission_classes = (IsSuperUserOrStaffReadOnly,)
 
 
-class RevokeToken(APIView):
-    permission_classes = (IsAuthenticated,)
+# class RevokeToken(APIView):
+#     permission_classes = (IsAuthenticated,)
 
-    # def get(self, request):
-    #     return Response({"mehtod": "get"})
+#     # def get(self, request):
+#     #     return Response({"mehtod": "get"})
 
-    # def post(self, request):
-    #     return Response({"mehtod": "post"})
+#     # def post(self, request):
+#     #     return Response({"mehtod": "post"})
 
-    # def put(self, request):
-    #     return Response({"mehtod": "put"})
+#     # def put(self, request):
+#     #     return Response({"mehtod": "put"})
 
-    def delete(self, request):
-        request.auth.delete()
-        # return Response({"msg": "Token revoked"}, status=201)
-        # status = 204 can not have any content
-        return Response(status=204)
+#     def delete(self, request):
+#         request.auth.delete()
+#         # return Response({"msg": "Token revoked"}, status=201)
+#         # status = 204 can not have any content
+#         return Response(status=204)

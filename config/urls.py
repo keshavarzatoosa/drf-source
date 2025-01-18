@@ -25,8 +25,10 @@ urlpatterns = [
     path('', include('blog.urls')),
     path('api/', include('api.urls')),
     path('pub/', include('pub.urls')),
-    # This is for token login
-    path('api-token-auth/', views.obtain_auth_token),
+    path('api/rest-auth/', include('dj_rest_auth.urls')),
+    path('api/rest-auth/registration/', include('dj_rest_auth.registration.urls')),
+    # This is for Token login
+    # path('api-token-auth/', views.obtain_auth_token),
 ]
 
 from django.conf import settings
