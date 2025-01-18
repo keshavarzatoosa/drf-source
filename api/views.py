@@ -1,11 +1,13 @@
 from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView, DestroyAPIView, RetrieveDestroyAPIView, UpdateAPIView, RetrieveUpdateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from django.shortcuts import render
 from blog.models import Article
 from .serializers import ArticleSerializer, UserSerializer
 from django.contrib.auth.models import User
 from .permissions import IsSuperUser, IsAuthorOrReadOnly, IsStaffOrReadOnly, IsSuperUserOrStaffReadOnly
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 
 # get all objects
@@ -68,6 +70,8 @@ class UserList(ListCreateAPIView):
         # print(self.request.user)
         # print token
         # print(self.request.auth)
+        # delete an extistin Token
+        # self.request.auth.delete()
         return User.objects.all()
     serializer_class = UserSerializer
     # permission_classes = (IsSuperUser,)
@@ -82,3 +86,22 @@ class UserDetail(RetrieveUpdateDestroyAPIView):
     # permission_classes = (IsSuperUser,)
     # permission_classes = (IsAdminUser,)
     permission_classes = (IsSuperUserOrStaffReadOnly,)
+
+
+class RevokeToken(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    # def get(self, request):
+    #     return Response({"mehtod": "get"})
+
+    # def post(self, request):
+    #     return Response({"mehtod": "post"})
+
+    # def put(self, request):
+    #     return Response({"mehtod": "put"})
+
+    def delete(self, request):
+        request.auth.delete()
+        # return Response({"msg": "Token revoked"}, status=201)
+        # status = 204 can not have any content
+        return Response(status=204)
